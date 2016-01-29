@@ -1,6 +1,7 @@
 var app = require('express')(),
   mongoose = require('mongoose'),
-  jade = require('jade');
+  jade = require('jade'),
+  crypto = require('crypto');
 
 mongoose.connect('mongodb://localhost/test');
 var db = mongoose.connection;
@@ -30,7 +31,7 @@ db.once('open', function() {
 
 var getRandomInt = function(bound) {
   return Math.floor(Math.random() * (bound));
-}
+};
 
 app.get('/', function(req, res) {
   Person.findOneRandom(function(err, person) {
@@ -44,7 +45,7 @@ app.get('/', function(req, res) {
 
     res.send(jade.renderFile('views/index.jade', {
       displayName: person.name,
-      gravatar: "about:blank",
+      avatarURL: "https://www.gravatar.com/avatar/" + crypto.createHash('md5').update(person.email.trim().toLowerCase()).digest('hex') + "?r=pg&d=wavatar&s=512",
       question: response.question,
       answer: response.answer
     }));
