@@ -45,7 +45,7 @@ app.get('/', function(req, res) {
 
     res.send(jade.renderFile('views/index.jade', {
       displayName: person.name,
-      avatarURL: "https://www.gravatar.com/avatar/" + crypto.createHash('md5').update(person.email.trim().toLowerCase()).digest('hex') + "?r=pg&d=wavatar&s=512",
+      avatarURL: "https://www.gravatar.com/avatar/" + crypto.createHash('md5').update(person.email.trim().toLowerCase()).digest('hex') + "?r=pg&d=retro&s=512",
       question: response.question,
       answer: response.answer
     }));
