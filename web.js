@@ -35,6 +35,17 @@ var getRandomInt = function(bound) {
   return Math.floor(Math.random() * (bound));
 };
 
+var renderRandomResponse = function(person, survey) {
+  var response = survey.responses[getRandomInt(survey.responses.length)];
+  return jade.renderFile('views/index.jade', {
+    displayName: person.name,
+    avatarURL: "https://www.gravatar.com/avatar/" + crypto.createHash('md5').update(person.email.trim().toLowerCase()).digest('hex') + "?r=pg&d=retro&s=512",
+    question: response.question,
+    baseQuestion: response.question.substring(0, response.question.indexOf('?')+1),
+    answer: response.answer
+  });
+};
+
 var app = express();
 app.use(express.static('public'));
 app.get('/forever', function(req, res) {
@@ -44,15 +55,7 @@ app.get('/forever', function(req, res) {
       return;
     }
 
-    var survey = person.surveys[getRandomInt(person.surveys.length)];
-    var response = survey.responses[getRandomInt(survey.responses.length)];
-
-    res.send(jade.renderFile('views/index.jade', {
-      displayName: person.name,
-      avatarURL: "https://www.gravatar.com/avatar/" + crypto.createHash('md5').update(person.email.trim().toLowerCase()).digest('hex') + "?r=pg&d=retro&s=512",
-      question: response.question,
-      answer: response.answer
-    }));
+    res.send(renderRandomResponse(person, person.surveys[getRandomInt(person.surveys.length)]));
   })
 });
 
@@ -63,7 +66,6 @@ var getQuarter = function (d) {
 };
 
 app.get('/:year(\\d{4})?/:quarter(\\d)?', function(req, res) {
-  console.log("burp")
   var year = req.params.year, quarter = req.params.quarter, filters = {"year": year, "quarter": quarter};
   if (!req.params.year) { // use previous quarter
     var d = new Date();
@@ -85,17 +87,9 @@ app.get('/:year(\\d{4})?/:quarter(\\d)?', function(req, res) {
       return;
     }
 
-    var survey = person.surveys.find(function(el) {
+    res.send(renderRandomResponse(person, person.surveys.find(function(el) {
       return quarter ? el.year == year && el.quarter == quarter : el.year == year;
-    });
-    var response = survey.responses[getRandomInt(survey.responses.length)];
-
-    res.send(jade.renderFile('views/index.jade', {
-      displayName: person.name,
-      avatarURL: "https://www.gravatar.com/avatar/" + crypto.createHash('md5').update(person.email.trim().toLowerCase()).digest('hex') + "?r=pg&d=retro&s=512",
-      question: response.question,
-      answer: response.answer
-    }));
+    })));
   });
 });
 
