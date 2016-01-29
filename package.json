@@ -1,0 +1,14 @@
+{
+  "name": "pd-faces",
+  "version": "1.0.0",
+  "description": "Putting a face on professional develoment",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "pd"
+  ],
+  "author": "Larry Price <lrprice@sep.com>",
+  "license": "MIT"
+}
