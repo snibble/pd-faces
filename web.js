@@ -1,8 +1,10 @@
-var app = require('express')();
-var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/test');
+var app = require('express')(),
+  mongoose = require('mongoose'),
+  jade = require('jade');
 
+mongoose.connect('mongodb://localhost/test');
 var db = mongoose.connection;
+
 db.on('error', console.error.bind(console, 'connection error:'));
 var Person;
 db.once('open', function() {
@@ -20,18 +22,32 @@ db.once('open', function() {
     email: String,
     surveys: [survey]
   });
+  person.plugin(require('mongoose-simple-random'));
   Person = mongoose.model('person', person);
 
   console.log('Successfully connected to database');
 });
 
+var getRandomInt = function(bound) {
+  return Math.floor(Math.random() * (bound));
+}
+
 app.get('/', function(req, res) {
-  Person.find(function(err, persons) {
+  Person.findOneRandom(function(err, person) {
     if (err) {
-      res.send(err)
-    } else {
-      res.send(persons);
+      res.send(err);
+      return;
     }
+
+    var survey = person.surveys[getRandomInt(person.surveys.length)];
+    var response = survey.responses[getRandomInt(survey.responses.length)];
+
+    res.send(jade.renderFile('views/index.jade', {
+      displayName: person.name,
+      gravatar: "about:blank",
+      question: response.question,
+      answer: response.answer
+    }));
   })
 });
 

@@ -1,0 +1,17 @@
+doctype html
+html(lang="en")
+  head
+    title SEP Professional Development
+    link(rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous")
+  body
+    div(style="background-color: #492467; color: white;")
+      .h3.text-center(style="padding-bottom: .5em; padding-top: .5em; margin-top: 0;") SEP Professional Development
+    .container.col
+      .row(style="padding-bottom: 5em;")
+        .col-xs-12
+          h1.text-center= question
+      .row
+        .col-sm-4
+          p= displayName
+        .col-sm-8
+          p(style="white-space: pre-line;")= answer
