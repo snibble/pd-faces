@@ -7,7 +7,6 @@ require('array.prototype.find');
 
 mongoose.connect('mongodb://localhost/test');
 var db = mongoose.connection;
-
 db.on('error', console.error.bind(console, 'connection error:'));
 var Person;
 db.once('open', function() {
@@ -48,11 +47,13 @@ var renderRandomResponse = function(person, survey) {
 
 var app = express();
 app.use(express.static('public'));
-app.get('/forever', function(req, res) {
+app.get('/forever', function(req, res, next) {
   Person.findOneRandom(function(err, person) {
     if (err) {
       res.send(err);
       return;
+    } else if (!person) {
+      return next(new Error("No survey results found. Good luck."));
     }
 
     res.send(renderRandomResponse(person, person.surveys[getRandomInt(person.surveys.length)]));
@@ -65,7 +66,7 @@ var getQuarter = function (d) {
   return {year: d.getFullYear(), quarter: q[Math.floor(d.getMonth() / 3)]};
 };
 
-app.get('/:year(\\d{4})?/:quarter(\\d)?', function(req, res) {
+app.get('/:year(\\d{4})?/:quarter(\\d)?', function(req, res, next) {
   var year = req.params.year, quarter = req.params.quarter, filters = {"year": year, "quarter": quarter};
   if (!req.params.year) { // use previous quarter
     var d = new Date();
@@ -83,8 +84,7 @@ app.get('/:year(\\d{4})?/:quarter(\\d)?', function(req, res) {
       res.send(err);
       return;
     } else if (!person) {
-      res.send("No survey results for the current quarter. Try /forever instead.");
-      return;
+      return next(new Error("No survey results found. Try a different quarter or check out /forever instead."));
     }
 
     res.send(renderRandomResponse(person, person.surveys.find(function(el) {
@@ -95,6 +95,27 @@ app.get('/:year(\\d{4})?/:quarter(\\d)?', function(req, res) {
 
 app.get('/faq', function(req, res) {
   res.send(jade.renderFile('views/what.jade'));
+});
+
+// error handling
+app.use(function(err, req, res, next) {
+  console.error(err.stack);
+  next(err);
+});
+app.use(function(err, req, res, next) {
+  if (req.xhr) {
+    res.status(500).send({ error: 'Something failed!' });
+  } else {
+    next(err);
+  }
+});
+app.use(function(err, req, res, next) {
+  console.error(err.stack);
+  res.status(500).send(jade.renderFile('views/error.jade', {error: err}));
+});
+app.use(function(req, res, next) {
+  res.status(404);
+  res.send(jade.renderFile('views/error.jade', {error: "404 not found"}));
 });
 
 app.listen(3000, function() {
