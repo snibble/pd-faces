@@ -3,23 +3,24 @@ html(lang="en")
   head
     title SEP Professional Development
     link(rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous")
+    link(rel="stylesheet" href="/css/styles.css")
   body
     div(style="background-color: #492467; color: white;")
-      .h3.text-center(style="padding-bottom: .5em; padding-top: .5em; margin-top: 0; margin-bottom: 1em;") SEP Professional Development
+      .h3.title.text-center(style="padding-bottom: .5em; padding-top: .5em; margin-top: 0; margin-bottom: 1em;") SEP Professional Development
     .container
       .row(style="padding-bottom: 1.5em;")
         .col-xs-12
-          h2.text-center(style="min-height: 3.5em;")= question
+          .h2.bold.text-center(style="min-height: 3.5em;")= question
       .row
         .col-sm-4
           img(src="#{avatarURL}" style="max-width: 100%")
         .col-sm-8
           .row
             .col-xs-12
-              h3(style="margin-top: 0;") #{displayName} says...
+              .h3.bold(style="margin-top: 0;") #{displayName} says...
           .row
             .col-xs-12
               if answer.length < 600
-                h3(style="white-space: pre-line; font-weight: normal;")= answer
+                .h3(style="white-space: pre-line; font-weight: normal;")= answer
               else
-                h4(style="white-space: pre-line; font-weight: normal;")= answer
+                .h4(style="white-space: pre-line; font-weight: normal;")= answer

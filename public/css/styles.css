@@ -1,0 +1,44 @@
+@font-face {
+  font-family: 'klavikaregular_condensed';
+  src: url('/fonts/klavika/klavika-regularcond-webfont.eot');
+  src: url('/fonts/klavika/klavika-regularcond-webfont.eot?#iefix') format('embedded-opentype'),
+       url('/fonts/klavika/klavika-regularcond-webfont.woff') format('woff'),
+       url('/fonts/klavika/klavika-regularcond-webfont.ttf') format('truetype'),
+       url('/fonts/klavika/klavika-regularcond-webfont.svg#klavikaregular_condensed') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'proxima_nova_rgbold';
+  src: url('/fonts/proxima_nova/proxima_nova_bold-webfont.eot');
+  src: url('/fonts/proxima_nova/proxima_nova_bold-webfont.eot?#iefix') format('embedded-opentype'),
+       url('/fonts/proxima_nova/proxima_nova_bold-webfont.woff') format('woff'),
+       url('/fonts/proxima_nova/proxima_nova_bold-webfont.ttf') format('truetype'),
+       url('/fonts/proxima_nova/proxima_nova_bold-webfont.svg#proxima_nova_rgbold') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'proxima_nova_rgregular';
+  src: url('/fonts/proxima_nova/proxima_nova_regular-webfont.eot');
+  src: url('/fonts/proxima_nova/proxima_nova_regular-webfont.eot?#iefix') format('embedded-opentype'),
+       url('/fonts/proxima_nova/proxima_nova_regular-webfont.woff') format('woff'),
+       url('/fonts/proxima_nova/proxima_nova_regular-webfont.ttf') format('truetype'),
+       url('/fonts/proxima_nova/proxima_nova_regular-webfont.svg#proxima_nova_rgregular') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+body {
+  font-family: "proxima_nova_rgregular", sans-serif;
+}
+
+.bold {
+  font-family: "proxima_nova_rgbold", sans-serif;
+}
+
+.title {
+  font-family: "klavikaregular_condensed", sans-serif;
+}

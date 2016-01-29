@@ -1,4 +1,4 @@
-var app = require('express')(),
+var express = require('express'),
   mongoose = require('mongoose'),
   jade = require('jade'),
   crypto = require('crypto');
@@ -33,6 +33,8 @@ var getRandomInt = function(bound) {
   return Math.floor(Math.random() * (bound));
 };
 
+var app = express();
+app.use(express.static('public'));
 app.get('/', function(req, res) {
   Person.findOneRandom(function(err, person) {
     if (err) {
