@@ -5,7 +5,12 @@ var express = require('express'),
 
 require('array.prototype.find');
 
-mongoose.connect('mongodb://localhost/test');
+if (process.env.ENVIRONMENT !== 'PRODUCTION') {
+  var env = require('node-env-file');
+  env(__dirname + '/.env');
+}
+
+mongoose.connect(process.env.DATABASE_URL);
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 var Person;
