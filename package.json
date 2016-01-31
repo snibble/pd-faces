@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "Putting a face on professional develoment",
   "main": "web.js",
+  "engines": {
+    "node": "5.5.0"
+  },
   "repository": "git@github.com:larryprice/pd-faces.git",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -14,6 +17,8 @@
   "author": "Larry Price <lrprice@sep.com>",
   "license": "MIT",
   "dependencies": {
+    "array.prototype.find": "^2.0.0",
+    "cookie-session": "^2.0.0-alpha.1",
     "express": "^4.13.4",
     "jade": "^1.11.0",
     "mongoose": "^4.3.7",
