@@ -1,7 +1,8 @@
 var express = require('express'),
   mongoose = require('mongoose'),
   jade = require('jade'),
-  crypto = require('crypto');
+  crypto = require('crypto'),
+  cookieSession = require('cookie-session');
 
 require('array.prototype.find');
 
@@ -51,7 +52,22 @@ var renderRandomResponse = function(person, survey) {
 };
 
 var app = express();
+
 app.use(express.static('public'));
+
+app.use(cookieSession({
+  name: 'pd-faces-session',
+  secret: process.env.SESSION_SECRET
+}));
+
+app.use(function(req, res, next) {
+  if (!req.session.authenticated) {
+    res.status(401).send(jade.renderFile('views/authenticate.jade'));
+    return;
+  }
+  next();
+});
+
 app.get('/forever', function(req, res, next) {
   Person.findOneRandom(function(err, person) {
     if (err) {
