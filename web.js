@@ -192,6 +192,6 @@ app.use(function(req, res, next) {
   res.send(jade.renderFile('views/error.jade', {error: "404 not found"}));
 });
 
-app.listen(3000, function() {
+app.listen(process.env.PORT || 3000, function() {
   console.log('Example app listening on port 3000');
 });
