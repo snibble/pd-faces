@@ -59,6 +59,7 @@ var renderRandomResponse = function(person, survey) {
 var app = express();
 
 // middleware
+app.use(require('morgan')('combined'));
 app.use(express.static('public'));
 app.use(cookieSession({
   name: 'pd-faces-session',
@@ -181,17 +182,6 @@ app.get('/:year(\\d{4})?/:quarter(\\d)?', function(req, res, next) {
 });
 
 // error handling
-app.use(function(err, req, res, next) {
-  console.error(err.stack);
-  next(err);
-});
-app.use(function(err, req, res, next) {
-  if (req.xhr) {
-    res.status(500).send({ error: 'Something failed!' });
-  } else {
-    next(err);
-  }
-});
 app.use(function(err, req, res, next) {
   console.error(err.stack);
   res.status(500).send(jade.renderFile('views/error.jade', {error: err}));
