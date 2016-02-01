@@ -66,11 +66,12 @@ app.use(cookieSession({
 }));
 app.use(bodyParser.json()); // for parsing application/json
 app.use(bodyParser.urlencoded({ extended: true }));
-if (false ) { //process.env.ENVIRONMENT === 'production') {
+if (process.env.ENVIRONMENT === 'production') {
   app.use(function(req, res, next) {
-    if(!req.secure) {
-      return res.redirect(['https://', req.get('Host'), req.url].join(''));
-    }
+    console.log(req.secure);
+    // if(!req.secure) {
+    //   return res.redirect(['https://', req.get('Host'), req.url].join(''));
+    // }
     next();
   });
 }
