@@ -12,7 +12,8 @@ html(lang="en")
         .col-xs-12
           .h3.text-center Psst... What's the secret passcode?
           form.text-center(method="post" action="authenticate")
-            input(type="password" name="passcode")
+            input(type="password" name="passcode" required)
+            input(type="submit" value="Submit")
     .footer
       .row
         .col-xs-12.col-sm-4(style="padding-left: 2em; margin-top: 1em;")
@@ -20,4 +21,4 @@ html(lang="en")
         .col-xs-12.col-sm-4.text-center
           a.h2(href="/") ...Try again?
         .col-xs-12.col-sm-4.text-center(style="padding-right: 2em; margin-top: 1em;")
-          a.pull-right(href="/faq") How do I access previous responses?
+          a.pull-right(href="/faq") How do I...?

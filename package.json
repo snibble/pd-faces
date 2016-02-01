@@ -18,11 +18,13 @@
   "license": "MIT",
   "dependencies": {
     "array.prototype.find": "^2.0.0",
-    "bcrypt-nodejs": "0.0.3",
-    "cookie-session": "^2.0.0-alpha.1",
+    "bcrypt": "^0.8.5",
+    "body-parser": "^1.14.2",
+    "cookie-session": "^1.2.0",
     "express": "^4.13.4",
     "jade": "^1.11.0",
     "mongoose": "^4.3.7",
+    "kerberos": "~0.0.17",
     "mongoose-simple-random": "^0.3.3"
   },
   "devDependencies": {
