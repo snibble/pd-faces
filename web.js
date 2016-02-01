@@ -68,10 +68,10 @@ app.use(bodyParser.json()); // for parsing application/json
 app.use(bodyParser.urlencoded({ extended: true }));
 if (process.env.ENVIRONMENT === 'production') {
   app.use(function(req, res, next) {
-    console.log(req.secure);
-    // if(!req.secure) {
-    //   return res.redirect(['https://', req.get('Host'), req.url].join(''));
-    // }
+    if (req.headers['x-forwarded-proto']!='https') {
+      res.redirect(['https://', req.get('Host'), req.url].join(''));
+      return;
+    }
     next();
   });
 }
