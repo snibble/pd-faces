@@ -4,7 +4,7 @@
   "description": "Putting a face on professional develoment",
   "main": "web.js",
   "engines": {
-    "node": "5.5.0"
+    "node": "6.1.0"
   },
   "repository": "git@github.com:snibble/pd-faces.git",
   "scripts": {
