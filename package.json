@@ -1,12 +1,12 @@
 {
   "name": "pd-faces",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Putting a face on professional develoment",
   "main": "web.js",
   "engines": {
     "node": "5.5.0"
   },
-  "repository": "git@github.com:larryprice/pd-faces.git",
+  "repository": "git@github.com:snibble/pd-faces.git",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node web.js"
@@ -14,7 +14,7 @@
   "keywords": [
     "pd"
   ],
-  "author": "Larry Price <lrprice@sep.com>",
+  "author": "Todd Trimble <trimble@sep.com>",
   "license": "MIT",
   "dependencies": {
     "array.prototype.find": "^2.0.0",
@@ -22,7 +22,7 @@
     "body-parser": "^1.14.2",
     "cookie-session": "^1.2.0",
     "express": "^4.13.4",
-    "jade": "^1.11.0",
+    "pug": ">=2.0.0-alpha1",
     "kerberos": "~0.0.17",
     "mongoose": "^4.3.7",
     "mongoose-simple-random": "^0.3.3",
