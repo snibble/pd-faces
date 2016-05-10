@@ -8,13 +8,11 @@ var express = require('express'),
 
 require('array.prototype.find');
 
-if (process.env.ENVIRONMENT === 'production') {
-  mongoose.connect(process.env.MONGOLAB_URI);
-} else {
+if (process.env.ENVIRONMENT != 'production') {
   var env = require('node-env-file');
   env(__dirname + '/.env');
-  mongoose.connect(process.env.DATABASE_URL);
 }
+mongoose.connect(process.env.MONGODB_URI);
 
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
