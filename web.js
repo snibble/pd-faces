@@ -1,6 +1,6 @@
 var express = require('express'),
   mongoose = require('mongoose'),
-  jade = require('jade'),
+  pug = require('pug'),
   crypto = require('crypto'),
   bcrypt = require('bcrypt'),
   cookieSession = require('cookie-session'),
@@ -45,7 +45,7 @@ var getRandomInt = function(bound) {
 
 var renderRandomResponse = function(person, survey) {
   var response = survey.responses[getRandomInt(survey.responses.length)];
-  return jade.renderFile('views/index.jade', {
+  return pug.renderFile('views/index.pug', {
     displayName: person.name,
     avatarURL: "https://www.gravatar.com/avatar/" + crypto.createHash('md5').update(person.email.trim().toLowerCase()).digest('hex') + "?r=pg&d=retro&s=512",
     question: response.question,
@@ -78,7 +78,7 @@ if (process.env.ENVIRONMENT === 'production') {
 // routes without auth
 app.post('/authenticate', function(req, res) {
   if (!req.body.passcode || req.body.passcode.length === 0) {
-    res.status(401).send(jade.renderFile('views/authenticate.jade'));
+    res.status(401).send(pug.renderFile('views/authenticate.pug'));
     return;
   }
   Passcode.findOne(function(err, code) {
@@ -112,7 +112,7 @@ app.post('/authenticate', function(req, res) {
           req.session.authenticated = true;
           res.redirect(302, '/');
         } else {
-          res.status(401).send(jade.renderFile('views/authenticate.jade'));
+          res.status(401).send(pug.renderFile('views/authenticate.pug'));
         }
       });
     }
@@ -120,13 +120,13 @@ app.post('/authenticate', function(req, res) {
 });
 
 app.get('/faq', function(req, res) {
-  res.send(jade.renderFile('views/what.jade'));
+  res.send(pug.renderFile('views/what.pug'));
 });
 
 //auth middleware
 app.use(function(req, res, next) {
   if (!req.session.authenticated) {
-    res.status(401).send(jade.renderFile('views/authenticate.jade'));
+    res.status(401).send(pug.renderFile('views/authenticate.pug'));
     return;
   }
   next();
@@ -182,11 +182,11 @@ app.get('/:year(\\d{4})?/:quarter(\\d)?', function(req, res, next) {
 // error handling
 app.use(function(err, req, res, next) {
   console.error(err.stack);
-  res.status(500).send(jade.renderFile('views/error.jade', {error: err}));
+  res.status(500).send(pug.renderFile('views/error.pug', {error: err}));
 });
 app.use(function(req, res, next) {
   res.status(404);
-  res.send(jade.renderFile('views/error.jade', {error: "404 not found"}));
+  res.send(pug.renderFile('views/error.pug', {error: "404 not found"}));
 });
 
 app.listen(process.env.PORT || 3000, function() {
