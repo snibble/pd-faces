@@ -43,6 +43,11 @@ var getRandomInt = function(bound) {
   return Math.floor(Math.random() * (bound));
 };
 
+var renderAllResponses = function(person) {
+  var response = person.responses;
+  return person.surveys;
+};
+
 var renderRandomResponse = function(person, survey) {
   var response = survey.responses[getRandomInt(survey.responses.length)];
   return pug.renderFile('views/index.pug', {
@@ -143,6 +148,20 @@ app.get('/forever', function(req, res, next) {
     }
 
     res.send(renderRandomResponse(person, person.surveys[getRandomInt(person.surveys.length)]));
+  })
+});
+
+app.get('/person/:name?', function(req, res, next) {
+  var name = req.params.name;
+  Person.findOne({ 'email': name }, {}, function(err, person) {
+    if (err) {
+      res.send(err);
+      return;
+    } else if (!person) {
+      return next(new Error("No survey results found. Good luck."));
+    }
+
+    res.send(renderAllResponses(person));
   })
 });
 
