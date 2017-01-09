@@ -1,0 +1,1 @@
+This is the start of a changelog for pd-faces. (It's also secretly an experiment with sparkleshare.)
